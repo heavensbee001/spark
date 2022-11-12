@@ -1,7 +1,7 @@
 export default function Hero({ className, children }) {
   return (
     <section
-      className={`relative bg-sparkGreen w-full h-32 text-white pt-12 pb-4 flex items-center px-2 ${className}`}
+      className={`relative bg-sparkGreen w-full h-32 text-white pt-12 pb-8 flex items-center px-2 ${className}`}
     >
       <div>{children}</div>
 

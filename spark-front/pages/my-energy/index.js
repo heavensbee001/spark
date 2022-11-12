@@ -47,13 +47,12 @@ export default function MyEnergy() {
     setSourcesPercentage(_sourcesPercentageObj);
   }, []);
 
-  const totalPrice = sources.reduce((price, source) => {
-    return (price += (source["$/kWh"] * sourcesPercentage[source._id]) / 100);
+  const totalPrice = sources.reduce((val, source) => {
+    return (val += (source["$/kWh"] * sourcesPercentage[source._id]) / 100);
   }, 0);
 
-  const totalCO2 = sources.reduce((price, source) => {
-    return (price +=
-      (source["cm3CO2/h"] * sourcesPercentage[source._id]) / 100);
+  const totalCO2 = sources.reduce((val, source) => {
+    return (val += (source["cm3CO2/h"] * sourcesPercentage[source._id]) / 100);
   }, 0);
 
   return (
@@ -77,9 +76,20 @@ export default function MyEnergy() {
                 step={10}
                 value={sourcesPercentage[source._id]}
                 onChange={(e) => {
+                  const totalPercentage = sources.reduce((val, _source) => {
+                    return (val +=
+                      source._id !== _source._id
+                        ? sourcesPercentage[_source._id]
+                        : 0);
+                  }, 0);
+
+                  const val =
+                    totalPercentage + Number(e.target.value) >= 100
+                      ? 100 - totalPercentage
+                      : Number(e.target.value);
                   setSourcesPercentage({
                     ...sourcesPercentage,
-                    [source._id]: Number(e.target.value),
+                    [source._id]: val,
                   });
                   setSelectedButton(null);
                 }}

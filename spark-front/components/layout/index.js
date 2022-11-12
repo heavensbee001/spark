@@ -10,6 +10,11 @@ export default function Layout({ children }) {
   let bgColor2 = "";
 
   switch (router.pathname) {
+    case "/my-profile":
+      title = "My Profile";
+      bgColor2 = "purple-400";
+      break;
+
     case "/my-energy":
       title = "My Energy";
       bgColor2 = "sky-300";
@@ -26,7 +31,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen">
-      <div className="hidden to-sky-300 from-sparkGreen"></div>
+      <div className="hidden to-sky-300 from-sparkGreen to-purple-400"></div>
       <header className="z-30 fixed top-0 left-0 w-screen h-10 pt-1">
         <div className=" flex items-center">
           <svg
@@ -51,7 +56,7 @@ export default function Layout({ children }) {
       <Hero
         className={`z-20 bg-gradient-to-l from-${bgColor1} to-${bgColor2} justify-center`}
       >
-        <h2 className="text-2xl">{title}</h2>
+        <h2 className="text-[36px]">{title}</h2>
       </Hero>
       <main className="z-30 px-4 pt-4">{children}</main>
       <BurgerMenu />

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function BurgerMenu({ className, children }) {
   return (
     <>
@@ -20,30 +22,27 @@ export default function BurgerMenu({ className, children }) {
           <span className="hamburger hamburger-3"></span>
         </label>
 
-        <a
+        {/* <a
           href="#"
           className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
         >
           👛
-        </a>
+        </a> */}
         <a
           href="#"
           className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
         >
           📈
         </a>
-        <a
+        <span
           href="#"
           className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
         >
-          ⚡️
-        </a>
-        <a
-          href="#"
-          className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
-        >
-          🙋
-        </a>
+          <Link href={"/my-energy"}>⚡️</Link>
+        </span>
+        <span className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
+          <Link href={"/my-profile"}>🙋</Link>
+        </span>
       </nav>
       <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
