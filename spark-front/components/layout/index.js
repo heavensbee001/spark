@@ -1,9 +1,32 @@
+import { useRouter } from "next/router";
 import BurgerMenu from "./BurgerMenu";
 import Hero from "./Hero";
 
 export default function Layout({ children }) {
+  const router = useRouter();
+
+  let title = "";
+  let bgColor1 = "sparkGreen";
+  let bgColor2 = "";
+
+  switch (router.pathname) {
+    case "/my-energy":
+      title = "My Energy";
+      bgColor2 = "sky-300";
+      break;
+
+    case "/admin":
+      title = "Admin zone";
+      bgColor2 = "pink-500";
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <div className="min-h-screen">
+      <div className="hidden to-sky-300 from-sparkGreen"></div>
       <header className="z-30 fixed top-0 left-0 w-screen h-10 pt-1">
         <div className=" flex items-center">
           <svg
@@ -25,8 +48,10 @@ export default function Layout({ children }) {
         </div>
       </header>
       {/* <div className="pt-10 mb-4 w-full"></div> */}
-      <Hero className="z-20 bg-gradient-to-l from-sparkGreen to-pink-500">
-        <h2 className="text-2xl">Admin zone</h2>
+      <Hero
+        className={`z-20 bg-gradient-to-l from-${bgColor1} to-${bgColor2} justify-center`}
+      >
+        <h2 className="text-2xl">{title}</h2>
       </Hero>
       <main className="z-30 px-4 pt-4">{children}</main>
       <BurgerMenu />

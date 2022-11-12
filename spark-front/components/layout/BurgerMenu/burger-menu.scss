@@ -121,7 +121,7 @@ $hamburger-spacing: 8px;
   @for $i from 1 through $menu-items {
     &:nth-child(#{$i + 2}) {
       transition-duration: 90ms+ (100ms * $i);
-      transform: translate3d(-80px * $i, 0, 0);
+      transform: translate3d(0, -80px * $i, 0);
     }
   }
 }
