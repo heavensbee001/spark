@@ -1,0 +1,16 @@
+get http://localhost:8888/.netlify/functions/hello
+
+###
+
+post http://localhost:8888/.netlify/functions/addsource
+Content-Type: application/json
+
+{
+    "name": "this is a test"
+}
+
+
+###
+
+post http://localhost:8888/.netlifypu/functions/findByIdentifier
+Content-Type: application/json
