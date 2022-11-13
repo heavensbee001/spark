@@ -4,6 +4,13 @@ import { useEffect, useState } from "react";
 export default function MyEnergy() {
   return (
     <div className="pt-4">
+      <div className="flex mb-6 inline justify-center items-center">
+        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
+        <div className="w-12 border-b-4"></div>
+        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
+        <div className="w-12 border-b-4"></div>
+        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
+      </div>
       <section className="mb-4 grid grid-cols-6 gap-2">
         <p className="text-sparkGreen text-[32px] font-bold col-span-1 text-center w-full">
           1

@@ -1,3 +1,4 @@
+
 get http://localhost:8888/.netlify/functions/hello
 
 ###
@@ -6,11 +7,18 @@ post http://localhost:8888/.netlify/functions/addsource
 Content-Type: application/json
 
 {
-    "name": "this is a test"
+   "sourceID":"0",
+   "type":"solar",
+   "displayName":"☀️ Solar",
+   "$/kWh":10.2,
+   "cm3CO2/h":0.2
 }
 
 
 ###
 
-post http://localhost:8888/.netlifypu/functions/findByIdentifier
-Content-Type: application/json
+get http://localhost:8888/.netlify/functions/findbyidentifier
+
+###
+
+get http://localhost:8888/.netlify/functions/findallsources
