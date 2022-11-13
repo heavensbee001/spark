@@ -1,58 +1,38 @@
 import { useEffect, useState } from "react";
 
-const sources = [
-  {
-    _id: "0",
-    type: "solar",
-    displayName: "☀️ solar",
-    "$/kWh": 10.2,
-    "cm3CO2/h": 0.2,
-    percent: 0,
-  },
-  {
-    _id: "1",
-    type: "Eolic",
-    displayName: "🍃 Eolic",
-    "$/kWh": 9.2,
-    "cm3CO2/h": 0.5,
-    percent: 0,
-  },
-  {
-    _id: "2",
-    type: "Nuclear",
-    displayName: "⚛ Nuclear",
-    "$/kWh": 4.8,
-    "cm3CO2/h": 0.6,
-    percent: 0,
-  },
-  {
-    _id: "3",
-    type: "Gas",
-    displayName: "🔥 Gas",
-    "$/kWh": 3.2,
-    "cm3CO2/h": 4.6,
-    percent: 0,
-  },
-];
-
 export default function MyEnergy() {
+  const [sources, setSources] = useState([]);
   const [sourcesPercentage, setSourcesPercentage] = useState({});
   const [selectedButton, setSelectedButton] = useState(null);
+
+  const getAllSources = async () => {
+    const res = await fetch(
+      "http://localhost:8888/.netlify/functions/findallsources"
+    );
+
+    const data = await res.json();
+
+    setSources(data || []);
+  };
+
+  useEffect(() => {
+    getAllSources();
+  }, []);
 
   useEffect(() => {
     const _sourcesPercentageObj = {};
     sources.forEach((source, index) => {
-      _sourcesPercentageObj[source._id] = 0;
+      _sourcesPercentageObj[source.id] = 0;
     });
     setSourcesPercentage(_sourcesPercentageObj);
-  }, []);
+  }, [sources]);
 
   const totalPrice = sources.reduce((val, source) => {
-    return (val += (source["$/kWh"] * sourcesPercentage[source._id]) / 100);
+    return (val += (source["$/kWh"] * sourcesPercentage[source.id]) / 100);
   }, 0);
 
   const totalCO2 = sources.reduce((val, source) => {
-    return (val += (source["cm3CO2/h"] * sourcesPercentage[source._id]) / 100);
+    return (val += (source["cm3CO2/h"] * sourcesPercentage[source.id]) / 100);
   }, 0);
 
   return (
@@ -74,12 +54,12 @@ export default function MyEnergy() {
                 min="0"
                 max="100"
                 step={10}
-                value={sourcesPercentage[source._id]}
+                value={sourcesPercentage[source.id]}
                 onChange={(e) => {
                   const totalPercentage = sources.reduce((val, _source) => {
                     return (val +=
-                      source._id !== _source._id
-                        ? sourcesPercentage[_source._id]
+                      source.id !== _source.id
+                        ? sourcesPercentage[_source.id]
                         : 0);
                   }, 0);
 
@@ -89,12 +69,12 @@ export default function MyEnergy() {
                       : Number(e.target.value);
                   setSourcesPercentage({
                     ...sourcesPercentage,
-                    [source._id]: val,
+                    [source.id]: val,
                   });
                   setSelectedButton(null);
                 }}
               />
-              <span>{sourcesPercentage[source._id]}%</span>
+              <span>{sourcesPercentage[source.id]}%</span>
             </div>
           ))}
       </section>
@@ -107,7 +87,7 @@ export default function MyEnergy() {
             )[0];
             const newPercentage = {};
             sources.forEach((source) => {
-              newPercentage[source._id] = selected._id === source._id ? 100 : 0;
+              newPercentage[source.id] = selected.id === source.id ? 100 : 0;
             });
             setSourcesPercentage(newPercentage);
             setSelectedButton("green");
@@ -123,7 +103,7 @@ export default function MyEnergy() {
             const selected = sources.sort((a, b) => a["$/kWh"] - b["$/kWh"])[0];
             const newPercentage = {};
             sources.forEach((source) => {
-              newPercentage[source._id] = selected._id === source._id ? 100 : 0;
+              newPercentage[source.id] = selected.id === source.id ? 100 : 0;
             });
             setSourcesPercentage(newPercentage);
             setSelectedButton("cheap");
