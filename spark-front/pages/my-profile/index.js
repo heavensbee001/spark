@@ -1,25 +1,44 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useAccount, useConnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 export default function MyEnergy() {
+  const { address } = useAccount();
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  });
   return (
     <div className="pt-4">
       <div className="flex mb-6 inline justify-center items-center">
-        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
-        <div className="w-12 border-b-4"></div>
-        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
-        <div className="w-12 border-b-4"></div>
-        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300"></div>
+        <div
+          className={`w-[20px] h-[20px] rounded-full border-4 border-slate-300 z-20 ${
+            address ? "!border-sparkGreen bg-sparkGreen" : ""
+          }`}
+        ></div>
+        <div
+          className={`w-12 h-1 bg-slate-300 -mx-1 z-10 ${
+            address ? "bg-gradient-to-r from-sparkGreen to-slate-300" : ""
+          }`}
+        ></div>
+        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300 z-20"></div>
+        <div className="w-12 h-1 bg-slate-300 -mx-1 z-10"></div>
+        <div className="w-[20px] h-[20px] rounded-full border-4 border-slate-300 z-20"></div>
       </div>
       <section className="mb-4 grid grid-cols-6 gap-2">
         <p className="text-sparkGreen text-[32px] font-bold col-span-1 text-center w-full">
           1
         </p>
         <div className="col-span-5">
-          <p>
-            Please, connect your Polygon wallet 👛 to start using Spark protocol
-          </p>
+          <p>Connect your Polygon wallet 👛 to start using Spark</p>
         </div>
+        <p className="col-span-6 text-center">
+          {/* <button
+            onClick={() => connect()}
+            className={`inline cursor-pointer rounded-full border-2 text-white border-sparkGreen bg-sparkGreen px-4 py-1`}
+          >
+            Connect Wallet
+          </button> */}
+        </p>
       </section>
       <section className="mb-4 grid grid-cols-6 gap-2">
         <p className="text-sparkGreen text-[32px] font-bold col-span-1 text-center w-full">

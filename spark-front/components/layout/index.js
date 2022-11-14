@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import BurgerMenu from "./BurgerMenu";
 import Hero from "./Hero";
+import WalletMenu from "./WalletMenu";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -35,7 +36,7 @@ export default function Layout({ children }) {
       <header className="z-30 fixed top-0 left-0 w-screen h-10 pt-1">
         <div className=" flex items-center">
           <svg
-            className="h-8 fill-sparkGreen drop-shadow-lg"
+            className="h-8 fill-white drop-shadow-lg"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             x="0px"
@@ -49,7 +50,8 @@ export default function Layout({ children }) {
               </g>
             </g>
           </svg>
-          <span className="text-2xl text-sparkGreen">Spark</span>
+          <span className="text-2xl text-white">Spark</span>
+          <WalletMenu />
         </div>
       </header>
       {/* <div className="pt-10 mb-4 w-full"></div> */}

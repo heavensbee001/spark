@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        sparkGreen: "#B5E48C",
+        sparkGreen: "#1ee103",
       },
     },
   },

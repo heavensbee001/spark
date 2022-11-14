@@ -93,7 +93,7 @@ export default function MyEnergy() {
             setSelectedButton("green");
           }}
           className={`cursor-pointer rounded-full border-4 border-sparkGreen w-12 h-12 flex items-center justify-center text-2xl mr-3 ${
-            selectedButton === "green" ? "bg-sparkGreen" : ""
+            selectedButton === "green" ? "bg-lime-200" : ""
           }`}
         >
           🌱
@@ -109,7 +109,7 @@ export default function MyEnergy() {
             setSelectedButton("cheap");
           }}
           className={`cursor-pointer rounded-full border-4 border-sparkGreen w-12 h-12 flex items-center justify-center text-2xl mr-3 ${
-            selectedButton === "cheap" ? "bg-sparkGreen" : ""
+            selectedButton === "cheap" ? "bg-lime-200" : ""
           }`}
         >
           💰
