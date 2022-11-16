@@ -22,3 +22,7 @@ get http://localhost:8888/.netlify/functions/findbyidentifier
 ###
 
 get http://localhost:8888/.netlify/functions/findallsources
+
+###
+
+get http://localhost:8888/.netlify/functions/getuserwhconsumption
