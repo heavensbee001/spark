@@ -115,7 +115,7 @@ export default function MyEnergy() {
           💰
         </button>
       </section>
-      <section>
+      <section className="mb-4">
         <h2>Your hourly energy price is:</h2>
         <p className="text-[48px] text-sparkGreen text-center">
           {Math.floor(totalPrice * 100) / 100} $/kWh
@@ -125,6 +125,14 @@ export default function MyEnergy() {
           <b>{Math.floor(totalCO2 * 100) / 100} cm3 of CO2 per hour</b>
         </p>
       </section>
+      <p className="text-center">
+        <button
+          onClick={() => {}}
+          className={`inline cursor-pointer rounded-full border-2 text-white border-sparkGreen bg-sparkGreen px-4 py-1`}
+        >
+          Submit Preferences
+        </button>
+      </p>
     </div>
   );
 }

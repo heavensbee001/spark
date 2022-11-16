@@ -44,9 +44,31 @@ export default function MyEnergy() {
         <p className="text-sparkGreen text-[32px] font-bold col-span-1 text-center w-full">
           2
         </p>
-        <div className="col-span-5">
-          <p>Almost there! Register your electricity meter serial number</p>
+        <div className="col-span-5 mb-2">
+          <p className="mb-2">
+            Almost there! Register your electricity meter serial number
+          </p>
+          <div className="">
+            <div className="w-60 shadow-md shadow-sparkGreen/30 border-2 border-sparkGreen rounded-full px-2 flex">
+              <label htmlFor="id" className="mr-2">
+                Serial_ID:
+              </label>
+              <input
+                type="text"
+                id="id"
+                className="w-full border-0 bg-transparent appearance-none"
+              ></input>
+            </div>
+          </div>
         </div>
+        <p className="col-span-6 text-center">
+          <button
+            onClick={() => {}}
+            className={`inline cursor-pointer rounded-full border-2 text-white border-sparkGreen bg-sparkGreen px-4 py-1`}
+          >
+            Submit
+          </button>
+        </p>
       </section>
       <section className="mb-6 grid grid-cols-6 gap-2">
         <p className="text-sparkGreen text-[32px] font-bold col-span-1 text-center w-full">
