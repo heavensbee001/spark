@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { useAccount, useContractRead } from "wagmi";
 import { abi } from "../../utils/abi/WHVendor.json";
@@ -32,6 +33,7 @@ const options = {
 
 export default function EnergyHistory() {
   const { address, isConnected } = useAccount();
+  const [dataBalance, setDataBalance] = useState([]);
 
   const {
     data: balanceData,
@@ -46,9 +48,10 @@ export default function EnergyHistory() {
     watch: true,
   });
 
-  const balanceDataMapped = balanceData
-    ? balanceData.map((item) => item.map((_item) => Number(_item)))
-    : [];
+  const balanceDataMapped =
+    dataBalance && dataBalance.length > 0
+      ? dataBalance.map((item) => item.map((_item) => Number(_item)))
+      : [];
 
   const labels = weekDays();
 
@@ -91,17 +94,27 @@ export default function EnergyHistory() {
     Math.floor(totalDebtMap.reduce((debt, item) => (debt += item), 0) * 100) /
     100;
 
+  useEffect(() => {
+    if (balanceData) {
+      setDataBalance(balanceData);
+    }
+  }, [balanceData]);
   return (
     <div>
-      <section className="mb-4">
-        <h2 className="mb-2">Your energy consumption last 7 days</h2>
-        <Bar options={options} data={data} />
-      </section>
-      <section>
-        <p className="text-lg text-center">
-          Your total debt is <span className="font-semibold">${totalDebt}</span>
-        </p>
-      </section>
+      {dataBalance && dataBalance.length > 0 && (
+        <>
+          <section className="mb-4">
+            <h2 className="mb-2">Your energy consumption last 7 days</h2>
+            <Bar options={options} data={data} />
+          </section>
+          <section>
+            <p className="text-lg text-center">
+              Your total debt is{" "}
+              <span className="font-semibold">${totalDebt}</span>
+            </p>
+          </section>
+        </>
+      )}
     </div>
   );
 }

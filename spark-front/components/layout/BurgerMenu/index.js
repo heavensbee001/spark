@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function BurgerMenu({ className, children }) {
+  const router = useRouter();
+
   return (
     <>
       <link
@@ -26,13 +29,25 @@ export default function BurgerMenu({ className, children }) {
         >
           👛
         </a> */}
-        <a className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
+        <a
+          className={`menu-item text-[40px] drop-shadow-md drop-shadow-black/50 ${
+            router.pathname === "/energy-history" ? "!bg-lime-300" : ""
+          }`}
+        >
           <Link href={"/energy-history"}>📈</Link>
         </a>
-        <span className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
+        <span
+          className={`menu-item text-[40px] drop-shadow-md drop-shadow-black/50 ${
+            router.pathname === "/my-energy" ? "!bg-lime-300" : ""
+          }`}
+        >
           <Link href={"/my-energy"}>⚡️</Link>
         </span>
-        <span className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
+        <span
+          className={`menu-item text-[40px] drop-shadow-md drop-shadow-black/50 ${
+            router.pathname === "/my-profile" ? "!bg-lime-300" : ""
+          }`}
+        >
           <Link href={"/my-profile"}>🙋</Link>
         </span>
       </nav>
