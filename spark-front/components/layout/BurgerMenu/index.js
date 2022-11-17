@@ -29,13 +29,13 @@ export default function BurgerMenu({ className, children }) {
         >
           👛
         </a> */}
-        <a
+        <span
           className={`menu-item text-[40px] drop-shadow-md drop-shadow-black/50 ${
             router.pathname === "/energy-history" ? "!bg-lime-300" : ""
           }`}
         >
           <Link href={"/energy-history"}>📈</Link>
-        </a>
+        </span>
         <span
           className={`menu-item text-[40px] drop-shadow-md drop-shadow-black/50 ${
             router.pathname === "/my-energy" ? "!bg-lime-300" : ""

@@ -34,6 +34,7 @@ const options = {
 export default function EnergyHistory() {
   const { address, isConnected } = useAccount();
   const [dataBalance, setDataBalance] = useState([]);
+  const [totalDebt, setTotalDebt] = useState(0);
 
   const {
     data: balanceData,
@@ -86,16 +87,18 @@ export default function EnergyHistory() {
     return _weekDays;
   }
 
-  const totalDebtMap = balanceDataMapped.map(
-    (item) => (item[0] * item[1]) / 1000000
-  );
-
-  const totalDebt =
-    Math.floor(totalDebtMap.reduce((debt, item) => (debt += item), 0) * 100) /
-    100;
-
   useEffect(() => {
     if (balanceData) {
+      const totalDebtMap = balanceDataMapped.map(
+        (item) => (item[0] * item[1]) / 1000000
+      );
+
+      const _totalDebt =
+        Math.floor(
+          totalDebtMap.reduce((debt, item) => (debt += item), 0) * 100
+        ) / 100;
+
+      setTotalDebt(_totalDebt);
       setDataBalance(balanceData);
     }
   }, [balanceData]);
