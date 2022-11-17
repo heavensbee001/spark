@@ -1,9 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+
+import {
+  useContractRead,
+  usePrepareContractWrite,
+  useContractWrite,
+} from "wagmi";
+import { useAccount, useConnect } from "wagmi";
+
+import { abi } from "../../utils/abi/WHVendor.json";
 
 export default function MyEnergy() {
   const [sources, setSources] = useState([]);
+  const [preferences, setPreferences] = useState([]);
   const [sourcesPercentage, setSourcesPercentage] = useState({});
   const [selectedButton, setSelectedButton] = useState(null);
+  const { address, isConnected } = useAccount();
 
   const getAllSources = async () => {
     const res = await fetch(
@@ -15,17 +26,64 @@ export default function MyEnergy() {
     setSources(data || []);
   };
 
+  const {
+    data: preferencesData,
+    isError: preferencesIsError,
+    isLoading: preferencesIsLoading,
+    isSuccess: preferencesIsSuccess,
+  } = useContractRead({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: abi,
+    functionName: "getUserPreferences",
+    args: [address],
+    watch: true,
+  });
+
+  const { config } = usePrepareContractWrite({
+    address: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    abi: abi,
+    functionName: "newUserPreferences",
+    args: [address, preferences],
+  });
+
+  const {
+    data: setUserPreferencesData,
+    isLoading: setUserPreferencesIsLoading,
+    isSuccess: setUserPreferencesIsSuccess,
+    write: setUserPreferencesWrite,
+  } = useContractWrite(config);
+
   useEffect(() => {
     getAllSources();
   }, []);
 
+  // useEffect(() => {
+  //   const _sourcesPercentageObj = {};
+  //   sources.forEach((source, index) => {
+  //     _sourcesPercentageObj[source.id] = 0;
+  //   });
+  //   debugger;
+  //   setSourcesPercentage(_sourcesPercentageObj);
+  // }, [sources]);
+
   useEffect(() => {
-    const _sourcesPercentageObj = {};
-    sources.forEach((source, index) => {
-      _sourcesPercentageObj[source.id] = 0;
-    });
-    setSourcesPercentage(_sourcesPercentageObj);
-  }, [sources]);
+    if (preferencesData) {
+      const _sourcesPercentageObj = {};
+      sources.forEach((source, index) => {
+        _sourcesPercentageObj[source.id] = Number(
+          preferencesData[index]?.percentage || 0
+        );
+        // _sourcesPercentageObj[source.id] = preferences[index];
+      });
+      setSourcesPercentage(_sourcesPercentageObj);
+      setPreferences(
+        preferencesData.map((item, index) => [
+          index,
+          Number(item?.percentage || 0),
+        ])
+      );
+    }
+  }, [preferencesData, sources]);
 
   const totalPrice = sources.reduce((val, source) => {
     return (val += (source["$/kWh"] * sourcesPercentage[source.id]) / 100);
@@ -35,12 +93,21 @@ export default function MyEnergy() {
     return (val += (source["cm3CO2/h"] * sourcesPercentage[source.id]) / 100);
   }, 0);
 
+  const totalPercentageSelected = sources.reduce((val, source) => {
+    return (val += sourcesPercentage[source.id]);
+  }, 0);
+
+  const handleSubmit = () => {
+    setUserPreferencesWrite();
+  };
+
   return (
     <div className="pt-4">
+      {/* {JSON.stringify(preferences)} */}
       <section className="mb-4">
         <p className="mb-4">Select the energy sources you want to consume</p>
         {sources
-          .sort((a, b) => a["cm3CO2/h"] - b["cm3CO2/h"])
+          .sort((a, b) => a["sourceID"] - b["sourceID"])
           .map((source, index) => (
             <div key={index} className="grid grid-cols-12 gap-2 mb-2">
               <label htmlFor={"source-" + source.type} className="col-span-3">
@@ -71,6 +138,9 @@ export default function MyEnergy() {
                     ...sourcesPercentage,
                     [source.id]: val,
                   });
+                  const _newPreferences = preferences;
+                  _newPreferences[index] = [index, val];
+                  setPreferences(_newPreferences);
                   setSelectedButton(null);
                 }}
               />
@@ -78,18 +148,30 @@ export default function MyEnergy() {
             </div>
           ))}
       </section>
+      {totalPercentageSelected !== 100 && (
+        <p className="text-sm text-red-400 mb-2 -mt-1">
+          The sum of all percentages should be 100%
+        </p>
+      )}
       <section className="flex items-center mb-4">
         <h2 className="mr-4">Quick selection:</h2>
         <button
           onClick={() => {
-            const selected = sources.sort(
-              (a, b) => a["cm3CO2/h"] - b["cm3CO2/h"]
-            )[0];
+            let _array = [...sources];
+            _array = _array.sort((a, b) => a["cm3CO2/h"] - b["cm3CO2/h"]);
+            const selected = _array[0];
             const newPercentage = {};
-            sources.forEach((source) => {
+            const _newPreferences = preferences;
+            sources.forEach((source, index) => {
               newPercentage[source.id] = selected.id === source.id ? 100 : 0;
+              _newPreferences[index] = [
+                index,
+                selected.id === source.id ? 100 : 0,
+              ];
             });
+
             setSourcesPercentage(newPercentage);
+            setPreferences(_newPreferences);
             setSelectedButton("green");
           }}
           className={`cursor-pointer rounded-full border-4 border-sparkGreen w-12 h-12 flex items-center justify-center text-2xl mr-3 ${
@@ -100,12 +182,21 @@ export default function MyEnergy() {
         </button>
         <button
           onClick={() => {
-            const selected = sources.sort((a, b) => a["$/kWh"] - b["$/kWh"])[0];
+            let _array = [...sources];
+            _array = _array.sort((a, b) => a["$/kWh"] - b["$/kWh"]);
+            const selected = _array[0];
             const newPercentage = {};
-            sources.forEach((source) => {
+            const _newPreferences = preferences;
+            sources.forEach((source, index) => {
               newPercentage[source.id] = selected.id === source.id ? 100 : 0;
+              _newPreferences[index] = [
+                index,
+                selected.id === source.id ? 100 : 0,
+              ];
+              debugger;
             });
             setSourcesPercentage(newPercentage);
+            setPreferences(_newPreferences);
             setSelectedButton("cheap");
           }}
           className={`cursor-pointer rounded-full border-4 border-sparkGreen w-12 h-12 flex items-center justify-center text-2xl mr-3 ${
@@ -127,7 +218,8 @@ export default function MyEnergy() {
       </section>
       <p className="text-center">
         <button
-          onClick={() => {}}
+          disabled={totalPercentageSelected !== 100}
+          onClick={handleSubmit}
           className={`inline cursor-pointer rounded-full border-2 text-white border-sparkGreen bg-sparkGreen px-4 py-1`}
         >
           Submit Preferences

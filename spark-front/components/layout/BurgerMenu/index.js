@@ -11,7 +11,6 @@ export default function BurgerMenu({ className, children }) {
       <nav className="menu">
         <input
           type="checkbox"
-          href="#"
           className="menu-open"
           name="menu-open"
           id="menu-open"
@@ -23,21 +22,14 @@ export default function BurgerMenu({ className, children }) {
         </label>
 
         {/* <a
-          href="#"
           className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
         >
           👛
         </a> */}
-        <a
-          href="#"
-          className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
-        >
-          📈
+        <a className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
+          <Link href={"/energy-history"}>📈</Link>
         </a>
-        <span
-          href="#"
-          className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50"
-        >
+        <span className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">
           <Link href={"/my-energy"}>⚡️</Link>
         </span>
         <span className="menu-item text-[40px] drop-shadow-md drop-shadow-black/50">

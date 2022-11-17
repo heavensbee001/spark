@@ -12,13 +12,17 @@ export default function Layout({ children }) {
 
   switch (router.pathname) {
     case "/my-profile":
-      title = "My Profile";
+      title = "🙋 My Profile";
       bgColor2 = "purple-400";
       break;
 
     case "/my-energy":
-      title = "My Energy";
+      title = "⚡️ My Energy";
       bgColor2 = "sky-300";
+      break;
+    case "/energy-history":
+      title = "📈 My Balances";
+      bgColor2 = "orange-300";
       break;
 
     case "/admin":
@@ -32,7 +36,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="min-h-screen">
-      <div className="hidden to-sky-300 from-sparkGreen to-purple-400"></div>
+      <div className="hidden to-sky-300 from-sparkGreen to-purple-400 to-orange-300"></div>
       <header className="z-30 fixed top-0 left-0 w-screen h-10 pt-1">
         <div className=" flex items-center">
           <svg
@@ -60,7 +64,7 @@ export default function Layout({ children }) {
       >
         <h2 className="text-[36px]">{title}</h2>
       </Hero>
-      <main className="z-30 px-4 pt-4">{children}</main>
+      <main className="z-30 px-4 pt-12">{children}</main>
       <BurgerMenu />
     </div>
   );
