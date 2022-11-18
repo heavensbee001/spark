@@ -51,7 +51,19 @@ export default function EnergyHistory() {
 
   const balanceDataMapped =
     dataBalance && dataBalance.length > 0
-      ? dataBalance.map((item) => item.map((_item) => Number(_item)))
+      ? dataBalance
+          .map((item) => item.map((_item) => Number(_item)))
+          .reduce((acc, item) => {
+            debugger;
+            if (acc.length === 0) {
+              acc.push(item);
+            } else if (acc[acc.length - 1][2] === item[2]) {
+              acc[acc.length - 1][0] += item[0];
+            } else {
+              acc.push(item);
+            }
+            return acc;
+          }, [])
       : [];
 
   const labels = weekDays();
