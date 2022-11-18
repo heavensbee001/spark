@@ -54,7 +54,6 @@ export default function EnergyHistory() {
       ? dataBalance
           .map((item) => item.map((_item) => Number(_item)))
           .reduce((acc, item) => {
-            debugger;
             if (acc.length === 0) {
               acc.push(item);
             } else if (acc[acc.length - 1][2] === item[2]) {

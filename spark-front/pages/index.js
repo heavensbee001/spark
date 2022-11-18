@@ -37,7 +37,7 @@ export default function Home() {
         </h1>
         <p className="text-white text-[26px] px-8 drop-shadow-lg leading-[36px] mb-8 max-w-screen-md mx-auto">
           Spark is the first protocol that allows consumers to choose which
-          electricity source of energy they want.
+          electricity source they want to power their homes.
         </p>
         <p className="text-center">
           <Link href="/my-profile">
