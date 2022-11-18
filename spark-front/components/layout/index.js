@@ -58,8 +58,8 @@ export default function Layout({ children }) {
                     </g>
                   </g>
                 </svg>
+                <span className="text-2xl text-white">Spark</span>
               </Link>
-              <span className="text-2xl text-white">Spark</span>
               <WalletMenu />
             </div>
           </header>
@@ -67,9 +67,13 @@ export default function Layout({ children }) {
           <Hero
             className={`z-20 bg-gradient-to-l from-${bgColor1} to-${bgColor2} justify-center`}
           >
-            <h2 className="text-[36px]">{title}</h2>
+            <h2 className="text-[36px] drop-shadow-md drop-shadow-black">
+              {title}
+            </h2>
           </Hero>
-          <main className="z-30 px-4 pt-12">{children}</main>
+          <main className="z-30 px-4 pt-12 max-w-screen-md mx-auto">
+            {children}
+          </main>
           <BurgerMenu />
         </>
       ) : (

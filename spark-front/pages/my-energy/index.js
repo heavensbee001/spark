@@ -6,19 +6,21 @@ import {
   useContractWrite,
 } from "wagmi";
 import { useAccount, useConnect } from "wagmi";
+import Modal from "../../components/Modal";
 
 import { abi } from "../../utils/abi/WHVendor.json";
 
 export default function MyEnergy() {
+  const { address, isConnected } = useAccount();
   const [sources, setSources] = useState([]);
   const [preferences, setPreferences] = useState([]);
   const [sourcesPercentage, setSourcesPercentage] = useState({});
   const [selectedButton, setSelectedButton] = useState(null);
-  const { address, isConnected } = useAccount();
+  const [openModal, setOpenModal] = useState(null);
 
   const getAllSources = async () => {
     const res = await fetch(
-      "http://localhost:8888/.netlify/functions/findallsources"
+      "https://gateway.pinata.cloud/ipfs/QmdasBi77QnUy4wRG1cMDwfPvKAfAkLbedgJXgsSbq8rrt"
     );
 
     const data = await res.json();
@@ -60,7 +62,7 @@ export default function MyEnergy() {
   // useEffect(() => {
   //   const _sourcesPercentageObj = {};
   //   sources.forEach((source, index) => {
-  //     _sourcesPercentageObj[source.id] = 0;
+  //     _sourcesPercentageObj[source.sourceID] = 0;
   //   });
   //   debugger;
   //   setSourcesPercentage(_sourcesPercentageObj);
@@ -70,10 +72,10 @@ export default function MyEnergy() {
     if (preferencesData) {
       const _sourcesPercentageObj = {};
       sources.forEach((source, index) => {
-        _sourcesPercentageObj[source.id] = Number(
+        _sourcesPercentageObj[source.sourceID] = Number(
           preferencesData[index]?.percentage || 0
         );
-        // _sourcesPercentageObj[source.id] = preferences[index];
+        // _sourcesPercentageObj[source.sourceID] = preferences[index];
       });
       setSourcesPercentage(_sourcesPercentageObj);
       setPreferences(
@@ -86,15 +88,18 @@ export default function MyEnergy() {
   }, [preferencesData, sources]);
 
   const totalPrice = sources.reduce((val, source) => {
-    return (val += (source["$/kWh"] * sourcesPercentage[source.id]) / 100);
+    return (val +=
+      (source["currentPricekWh"] * sourcesPercentage[source.sourceID]) / 100);
   }, 0);
 
   const totalCO2 = sources.reduce((val, source) => {
-    return (val += (source["cm3CO2/h"] * sourcesPercentage[source.id]) / 100);
+    return (val +=
+      (source["currentEmissioncm3CO2"] * sourcesPercentage[source.sourceID]) /
+      100);
   }, 0);
 
   const totalPercentageSelected = sources.reduce((val, source) => {
-    return (val += sourcesPercentage[source.id]);
+    return (val += sourcesPercentage[source.sourceID]);
   }, 0);
 
   const handleSubmit = () => {
@@ -110,23 +115,34 @@ export default function MyEnergy() {
           .sort((a, b) => a["sourceID"] - b["sourceID"])
           .map((source, index) => (
             <div key={index} className="grid grid-cols-12 gap-2 mb-2">
-              <label htmlFor={"source-" + source.type} className="col-span-3">
-                {source.displayName}
+              <label
+                htmlFor={"source-" + source.type}
+                className="col-span-1 flex items-center justify-center"
+                onClick={() => setOpenModal(index)}
+              >
+                {source.displayName.slice(0, 2)}
+              </label>
+              <label
+                htmlFor={"source-" + source.type}
+                className="col-span-3 flex items-center whitespace-nowrap"
+                onClick={() => setOpenModal(index)}
+              >
+                {source.displayName.slice(2)}
               </label>
               <input
-                className="col-span-7"
+                className="col-span-6 flex items-center"
                 type="range"
                 id={"source-" + source.type}
                 name="volume"
                 min="0"
                 max="100"
                 step={10}
-                value={sourcesPercentage[source.id]}
+                value={sourcesPercentage[source.sourceID]}
                 onChange={(e) => {
                   const totalPercentage = sources.reduce((val, _source) => {
                     return (val +=
-                      source.id !== _source.id
-                        ? sourcesPercentage[_source.id]
+                      source.sourceID !== _source.sourceID
+                        ? sourcesPercentage[_source.sourceID]
                         : 0);
                   }, 0);
 
@@ -136,7 +152,7 @@ export default function MyEnergy() {
                       : Number(e.target.value);
                   setSourcesPercentage({
                     ...sourcesPercentage,
-                    [source.id]: val,
+                    [source.sourceID]: val,
                   });
                   const _newPreferences = preferences;
                   _newPreferences[index] = [index, val];
@@ -144,7 +160,9 @@ export default function MyEnergy() {
                   setSelectedButton(null);
                 }}
               />
-              <span>{sourcesPercentage[source.id]}%</span>
+              <span className="col-span-1 flex items-center">
+                {sourcesPercentage[source.sourceID]}%
+              </span>
             </div>
           ))}
       </section>
@@ -158,15 +176,18 @@ export default function MyEnergy() {
         <button
           onClick={() => {
             let _array = [...sources];
-            _array = _array.sort((a, b) => a["cm3CO2/h"] - b["cm3CO2/h"]);
+            _array = _array.sort(
+              (a, b) => a["currentEmissioncm3CO2"] - b["currentEmissioncm3CO2"]
+            );
             const selected = _array[0];
             const newPercentage = {};
             const _newPreferences = preferences;
             sources.forEach((source, index) => {
-              newPercentage[source.id] = selected.id === source.id ? 100 : 0;
+              newPercentage[source.sourceID] =
+                selected.sourceID === source.sourceID ? 100 : 0;
               _newPreferences[index] = [
                 index,
-                selected.id === source.id ? 100 : 0,
+                selected.sourceID === source.sourceID ? 100 : 0,
               ];
             });
 
@@ -183,17 +204,19 @@ export default function MyEnergy() {
         <button
           onClick={() => {
             let _array = [...sources];
-            _array = _array.sort((a, b) => a["$/kWh"] - b["$/kWh"]);
+            _array = _array.sort(
+              (a, b) => a["currentPricekWh"] - b["currentPricekWh"]
+            );
             const selected = _array[0];
             const newPercentage = {};
             const _newPreferences = preferences;
             sources.forEach((source, index) => {
-              newPercentage[source.id] = selected.id === source.id ? 100 : 0;
+              newPercentage[source.sourceID] =
+                selected.sourceID === source.sourceID ? 100 : 0;
               _newPreferences[index] = [
                 index,
-                selected.id === source.id ? 100 : 0,
+                selected.sourceID === source.sourceID ? 100 : 0,
               ];
-              debugger;
             });
             setSourcesPercentage(newPercentage);
             setPreferences(_newPreferences);
@@ -225,6 +248,14 @@ export default function MyEnergy() {
           Submit Preferences
         </button>
       </p>
+      {openModal !== null && (
+        <Modal
+          source={sources[openModal]}
+          onClose={() => {
+            setOpenModal(null);
+          }}
+        />
+      )}
     </div>
   );
 }

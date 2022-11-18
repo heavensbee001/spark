@@ -87,17 +87,16 @@ export default function EnergyHistory() {
     return _weekDays;
   }
 
+  const totalDebtMap = balanceDataMapped.map(
+    (item) => (item[0] * item[1]) / 1000000
+  );
+
+  const _totalDebt =
+    Math.floor(totalDebtMap.reduce((debt, item) => (debt += item), 0) * 100) /
+    100;
+
   useEffect(() => {
     if (balanceData) {
-      const totalDebtMap = balanceDataMapped.map(
-        (item) => (item[0] * item[1]) / 1000000
-      );
-
-      const _totalDebt =
-        Math.floor(
-          totalDebtMap.reduce((debt, item) => (debt += item), 0) * 100
-        ) / 100;
-
       setTotalDebt(_totalDebt);
       setDataBalance(balanceData);
     }
@@ -113,7 +112,7 @@ export default function EnergyHistory() {
           <section>
             <p className="text-lg text-center">
               Your total debt is{" "}
-              <span className="font-semibold">${totalDebt}</span>
+              <span className="font-semibold">${_totalDebt}</span>
             </p>
           </section>
         </>

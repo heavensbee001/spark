@@ -1,0 +1,362 @@
+[
+  {
+    "displayName": "☀️ Solar",
+    "sourceID": 0,
+    "serialID": 7129837189,
+    "yearlyAverageProductionWh": 8500000000000,
+    "renewable": true,
+    "type": "solar",
+    "productionHistory": [
+      {
+        "year": 2012,
+        "Wh": 8200000000000,
+        "averagePrice": 0.43,
+        "averagecm3CO2": 1200000000
+      },
+      {
+        "year": 2013,
+        "Wh": 8200000000000,
+        "averagePrice": 0.42,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2014,
+        "Wh": 8300000000000,
+        "averagePrice": 0.41,
+        "averagecm3CO2": 1150000000
+      },
+      {
+        "year": 2015,
+        "Wh": 8500000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 1030000000
+      },
+      {
+        "year": 2016,
+        "Wh": 8500000000000,
+        "averagePrice": 0.37,
+        "averagecm3CO2": 980000000
+      },
+      {
+        "year": 2017,
+        "Wh": 8500000000000,
+        "averagePrice": 0.31,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2018,
+        "Wh": 8400000000000,
+        "averagePrice": 0.34,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2019,
+        "Wh": 8700000000000,
+        "averagePrice": 0.29,
+        "averagecm3CO2": 970000000
+      },
+      {
+        "year": 2020,
+        "Wh": 8700000000000,
+        "averagePrice": 0.28,
+        "averagecm3CO2": 950000000
+      },
+      {
+        "year": 2021,
+        "Wh": 8800000000000,
+        "averagePrice": 0.26,
+        "averagecm3CO2": 930000000
+      }
+    ],
+    "currentPricekWh": 0.27,
+    "currentEmissioncm3CO2": 3.14
+  },
+  {
+    "displayName": "🍃 Eolic",
+    "sourceID": 1,
+    "serialID": 3459020283,
+    "yearlyAverageProductionWh": 8700000000000,
+    "renewable": true,
+    "type": "eolic",
+    "productionHistory": [
+      {
+        "year": 2012,
+        "Wh": 8000000000000,
+        "averagePrice": 0.43,
+        "averagecm3CO2": 1200000000
+      },
+      {
+        "year": 2013,
+        "Wh": 8300000000000,
+        "averagePrice": 0.42,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2014,
+        "Wh": 8400000000000,
+        "averagePrice": 0.4,
+        "averagecm3CO2": 1150000000
+      },
+      {
+        "year": 2015,
+        "Wh": 8600000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 1030000000
+      },
+      {
+        "year": 2016,
+        "Wh": 8700000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 980000000
+      },
+      {
+        "year": 2017,
+        "Wh": 9200000000000,
+        "averagePrice": 0.3,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2018,
+        "Wh": 9400000000000,
+        "averagePrice": 0.34,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2019,
+        "Wh": 9700000000000,
+        "averagePrice": 0.29,
+        "averagecm3CO2": 970000000
+      },
+      {
+        "year": 2020,
+        "Wh": 9900000000000,
+        "averagePrice": 0.28,
+        "averagecm3CO2": 950000000
+      },
+      {
+        "year": 2021,
+        "Wh": 9800000000000,
+        "averagePrice": 0.27,
+        "averagecm3CO2": 930000000
+      }
+    ],
+    "currentPricekWh": 0.28,
+    "currentEmissioncm3CO2": 2.73
+  },
+  {
+    "displayName": "🌊 Hydraulic",
+    "sourceID": 2,
+    "serialID": 9879898708,
+    "yearlyAverageProductionWh": 7700000000000,
+    "renewable": true,
+    "type": "hydraulic",
+    "productionHistory": [
+      {
+        "year": 2012,
+        "Wh": 7000000000000,
+        "averagePrice": 0.43,
+        "averagecm3CO2": 1200000000
+      },
+      {
+        "year": 2013,
+        "Wh": 7300000000000,
+        "averagePrice": 0.42,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2014,
+        "Wh": 7400000000000,
+        "averagePrice": 0.4,
+        "averagecm3CO2": 1150000000
+      },
+      {
+        "year": 2015,
+        "Wh": 7600000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 1030000000
+      },
+      {
+        "year": 2016,
+        "Wh": 7700000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 980000000
+      },
+      {
+        "year": 2017,
+        "Wh": 8200000000000,
+        "averagePrice": 0.3,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2018,
+        "Wh": 8400000000000,
+        "averagePrice": 0.34,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2019,
+        "Wh": 8700000000000,
+        "averagePrice": 0.29,
+        "averagecm3CO2": 970000000
+      },
+      {
+        "year": 2020,
+        "Wh": 8900000000000,
+        "averagePrice": 0.28,
+        "averagecm3CO2": 950000000
+      },
+      {
+        "year": 2021,
+        "Wh": 8800000000000,
+        "averagePrice": 0.27,
+        "averagecm3CO2": 930000000
+      }
+    ],
+    "currentPricekWh": 0.26,
+    "currentEmissioncm3CO2": 2.84
+  },
+  {
+    "displayName": "⚛ Nuclear",
+    "sourceID": 3,
+    "serialID": 7289998788,
+    "yearlyAverageProductionWh": 14700000000000,
+    "renewable": true,
+    "type": "hydraulic",
+    "productionHistory": [
+      {
+        "year": 2012,
+        "Wh": 14000000000000,
+        "averagePrice": 0.43,
+        "averagecm3CO2": 1200000000
+      },
+      {
+        "year": 2013,
+        "Wh": 14300000000000,
+        "averagePrice": 0.42,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2014,
+        "Wh": 14400000000000,
+        "averagePrice": 0.4,
+        "averagecm3CO2": 1150000000
+      },
+      {
+        "year": 2015,
+        "Wh": 14600000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 1030000000
+      },
+      {
+        "year": 2016,
+        "Wh": 14700000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 980000000
+      },
+      {
+        "year": 2017,
+        "Wh": 15200000000000,
+        "averagePrice": 0.3,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2018,
+        "Wh": 15400000000000,
+        "averagePrice": 0.34,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2019,
+        "Wh": 15700000000000,
+        "averagePrice": 0.29,
+        "averagecm3CO2": 970000000
+      },
+      {
+        "year": 2020,
+        "Wh": 15900000000000,
+        "averagePrice": 0.28,
+        "averagecm3CO2": 950000000
+      },
+      {
+        "year": 2021,
+        "Wh": 15800000000000,
+        "averagePrice": 0.19,
+        "averagecm3CO2": 930000000
+      }
+    ],
+    "currentPricekWh": 0.24,
+    "currentEmissioncm3CO2": 2.91
+  },
+  {
+    "displayName": "🔥 Natural Gas",
+    "sourceID": 4,
+    "serialID": 4342788872,
+    "yearlyAverageProductionWh": 16700000000000,
+    "renewable": true,
+    "type": "gas",
+    "productionHistory": [
+      {
+        "year": 2012,
+        "Wh": 16000000000000,
+        "averagePrice": 0.43,
+        "averagecm3CO2": 1200000000
+      },
+      {
+        "year": 2013,
+        "Wh": 16300000000000,
+        "averagePrice": 0.42,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2014,
+        "Wh": 16400000000000,
+        "averagePrice": 0.4,
+        "averagecm3CO2": 1150000000
+      },
+      {
+        "year": 2015,
+        "Wh": 16600000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 1030000000
+      },
+      {
+        "year": 2016,
+        "Wh": 16700000000000,
+        "averagePrice": 0.39,
+        "averagecm3CO2": 980000000
+      },
+      {
+        "year": 2017,
+        "Wh": 17200000000000,
+        "averagePrice": 0.3,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2018,
+        "Wh": 17400000000000,
+        "averagePrice": 0.34,
+        "averagecm3CO2": 1100000000
+      },
+      {
+        "year": 2019,
+        "Wh": 17700000000000,
+        "averagePrice": 0.29,
+        "averagecm3CO2": 970000000
+      },
+      {
+        "year": 2020,
+        "Wh": 17900000000000,
+        "averagePrice": 0.28,
+        "averagecm3CO2": 950000000
+      },
+      {
+        "year": 2021,
+        "Wh": 17800000000000,
+        "averagePrice": 0.19,
+        "averagecm3CO2": 930000000
+      }
+    ],
+    "currentPricekWh": 0.19,
+    "currentEmissioncm3CO2": 8.12
+  }
+]

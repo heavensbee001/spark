@@ -1,22 +1,28 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function BurgerMenu({ className, children }) {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-      <link
-        rel="stylesheet"
-        href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-      />
-
-      <nav className="menu">
+      {open && (
+        <label
+          className="z-40 fixed w-screen h-screen left-0 top-0"
+          htmlFor="menu-open"
+        ></label>
+      )}
+      <nav className="menu z-50">
         <input
           type="checkbox"
           className="menu-open"
           name="menu-open"
           id="menu-open"
+          onChange={(e) => {
+            setOpen(e.target.checked);
+          }}
         />
         <label className="menu-open-button" htmlFor="menu-open">
           <span className="hamburger hamburger-1"></span>
